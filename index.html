@@ -360,7 +360,12 @@
             white-space: nowrap;
             color: #000;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            transition: color 0.8s ease;
+            transition: color 0.8s ease, transform 0.6s cubic-bezier(.16, 1, .3, 1), filter 0.5s ease;
+        }
+
+        .background-text.bg-pulse {
+            transform: translate(-50%, -50%) scaleX(1.02) scale(1.06);
+            filter: blur(2px);
         }
 
         /* Container do Tênis */
@@ -376,40 +381,149 @@
             justify-content: center;
             align-items: center;
             filter: drop-shadow(10px 18px 18px rgba(0, 0, 0, 0.12));
+            perspective: 1200px;
         }
 
         .shoe-container img {
             width: 100%;
             height: auto;
-            transition: transform 0.6s ease-in-out, opacity 0.4s ease;
+            will-change: transform, opacity, filter;
+
+            transform:
+                translate(var(--x, 0px), var(--y, 0px))
+                rotate(var(--rot, 0deg))
+                scale(var(--scale, 1));
+
+            transition: none;
         }
 
-        /* Animações */
-        .anim-slide-in {
-            animation: slideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* ==========================================
+           TRANSIÇÃO PREMIUM DOS PRODUTOS
+        ========================================== */
+
+        /* SAÍDA PARA ESQUERDA */
+        .shoe-exit-left {
+            animation: shoeExitLeft .38s cubic-bezier(.55, 0, 1, .45) forwards;
         }
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) rotate(var(--rot)) scale(0.8);
-            }
-            to {
+
+        /* SAÍDA PARA DIREITA */
+        .shoe-exit-right {
+            animation: shoeExitRight .38s cubic-bezier(.55, 0, 1, .45) forwards;
+        }
+
+        /* NOVO TÊNIS VINDO DA DIREITA */
+        .shoe-enter-right {
+            animation: shoeEnterRight .72s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        /* NOVO TÊNIS VINDO DA ESQUERDA */
+        .shoe-enter-left {
+            animation: shoeEnterLeft .72s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+
+        @keyframes shoeExitLeft {
+
+            0% {
                 opacity: 1;
-                transform: translate(var(--x), var(--y)) rotate(var(--rot)) scale(var(--scale));
+                transform:
+                    translate(var(--x), var(--y))
+                    rotate(var(--rot))
+                    scale(var(--scale));
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translate(calc(var(--x) - 140px), calc(var(--y) + 15px))
+                    rotate(calc(var(--rot) - 12deg))
+                    scale(.82);
+                filter: blur(5px);
             }
         }
 
-        .anim-rotate-in {
-            animation: rotateIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        @keyframes rotateIn {
-            from {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) rotate(calc(var(--rot) + 20deg)) scale(0.4) perspective(1000px) rotateY(-90deg);
-            }
-            to {
+
+        @keyframes shoeExitRight {
+
+            0% {
                 opacity: 1;
-                transform: translate(var(--x), var(--y)) rotate(var(--rot)) scale(var(--scale)) perspective(1000px) rotateY(0deg);
+                transform:
+                    translate(var(--x), var(--y))
+                    rotate(var(--rot))
+                    scale(var(--scale));
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translate(calc(var(--x) + 140px), calc(var(--y) + 15px))
+                    rotate(calc(var(--rot) + 12deg))
+                    scale(.82);
+                filter: blur(5px);
+            }
+        }
+
+
+        @keyframes shoeEnterRight {
+
+            0% {
+                opacity: 0;
+                transform:
+                    translate(calc(var(--x) + 170px), calc(var(--y) - 20px))
+                    rotate(calc(var(--rot) + 16deg))
+                    scale(.78);
+                filter: blur(7px);
+            }
+
+            65% {
+                opacity: 1;
+                transform:
+                    translate(calc(var(--x) - 8px), var(--y))
+                    rotate(calc(var(--rot) - 2deg))
+                    scale(calc(var(--scale) * 1.03));
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform:
+                    translate(var(--x), var(--y))
+                    rotate(var(--rot))
+                    scale(var(--scale));
+                filter: blur(0);
+            }
+        }
+
+
+        @keyframes shoeEnterLeft {
+
+            0% {
+                opacity: 0;
+                transform:
+                    translate(calc(var(--x) - 170px), calc(var(--y) - 20px))
+                    rotate(calc(var(--rot) - 16deg))
+                    scale(.78);
+                filter: blur(7px);
+            }
+
+            65% {
+                opacity: 1;
+                transform:
+                    translate(calc(var(--x) + 8px), var(--y))
+                    rotate(calc(var(--rot) + 2deg))
+                    scale(calc(var(--scale) * 1.03));
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform:
+                    translate(var(--x), var(--y))
+                    rotate(var(--rot))
+                    scale(var(--scale));
+                filter: blur(0);
             }
         }
 
@@ -420,8 +534,35 @@
             left: 50px;
             z-index: 3;
             width: 230px;
-            transition: opacity 0.4s ease;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition:
+                opacity .32s ease,
+                transform .45s cubic-bezier(.16, 1, .3, 1),
+                filter .35s ease;
+        }
+
+        .product-info.info-exit {
+            opacity: 0;
+            transform: translateY(15px);
+            filter: blur(4px);
+        }
+
+        .product-info.info-enter {
+            animation: infoEnter .65s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        @keyframes infoEnter {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+                filter: blur(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
         }
 
         .product-info h1 {
@@ -1276,18 +1417,20 @@
             x: "0px",
             y: "-6px"
         }, {
-    img: "img5.webp",
-    title: "NIKE AIR FORCE BLUE",
-    bodyColor: "linear-gradient(135deg, #03151d 0%, #062c3b 50%, #004d67 100%)",
-    textColor: "#ffffff",
-    bgTextColor: "rgba(0, 212, 255, 0.18)",
-    rotate: "-16deg",
-    scale: "1.05",
-    x: "5px",
-    y: "-5px"
-}];
+            img: "img5.webp",
+            title: "NIKE AIR FORCE BLUE",
+            bodyColor: "linear-gradient(135deg, #03151d 0%, #062c3b 50%, #004d67 100%)",
+            textColor: "#ffffff",
+            bgTextColor: "rgba(0, 212, 255, 0.18)",
+            rotate: "-16deg",
+            scale: "1.05",
+            x: "5px",
+            y: "-5px"
+        }];
 
         let currentIndex = 0;
+        let isAnimating = false;
+
         const body = document.getElementById('body');
         const bgText = document.getElementById('bg-text');
         const shoeImg = document.getElementById('shoe-img');
@@ -1305,7 +1448,7 @@
             prodTitle.style.color = product.textColor;
 
             const isDark = currentIndex === 3 || currentIndex === 4;
-            
+
             if (isDark) {
                 prodDesc.style.color = "rgba(255, 255, 255, 0.7)";
                 prodLink.style.color = "#ffffff";
@@ -1376,36 +1519,66 @@
             shoeImg.style.transform = `translate(${product.x}, ${product.y}) rotate(${product.rotate}) scale(${product.scale})`;
         }
 
-        function nextSlide() {
-            shoeImg.classList.remove('anim-rotate-in');
-            shoeImg.classList.add('anim-slide-in');
-            prodInfo.style.opacity = '0';
+        function changeSlide(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const isNext = direction === 1;
+
+            /* saída do tênis */
+            shoeImg.classList.remove(
+                'shoe-enter-right',
+                'shoe-enter-left',
+                'shoe-exit-left',
+                'shoe-exit-right'
+            );
+
+            shoeImg.classList.add(
+                isNext ? 'shoe-exit-left' : 'shoe-exit-right'
+            );
+
+            /* saída da informação */
+            prodInfo.classList.remove('info-enter');
+            prodInfo.classList.add('info-exit');
+
+            /* pulso no NIKE gigante */
+            bgText.classList.add('bg-pulse');
 
             setTimeout(() => {
-                currentIndex = (currentIndex + 1) % products.length;
+                /* troca produto */
+                currentIndex = (currentIndex + direction + products.length) % products.length;
                 updateContent();
 
-                shoeImg.classList.remove('anim-slide-in');
+                /* prepara entrada */
+                shoeImg.classList.remove('shoe-exit-left', 'shoe-exit-right');
+                prodInfo.classList.remove('info-exit');
+
                 void shoeImg.offsetWidth;
-                shoeImg.classList.add('anim-slide-in');
-                prodInfo.style.opacity = '1';
-            }, 400);
+                void prodInfo.offsetWidth;
+
+                shoeImg.classList.add(
+                    isNext ? 'shoe-enter-right' : 'shoe-enter-left'
+                );
+                prodInfo.classList.add('info-enter');
+
+                /* remove pulso do fundo */
+                bgText.classList.remove('bg-pulse');
+
+                setTimeout(() => {
+                    shoeImg.classList.remove('shoe-enter-right', 'shoe-enter-left');
+                    prodInfo.classList.remove('info-enter');
+                    isAnimating = false;
+                }, 720);
+
+            }, 380);
+        }
+
+        function nextSlide() {
+            changeSlide(1);
         }
 
         function prevSlide() {
-            shoeImg.classList.remove('anim-slide-in');
-            shoeImg.classList.add('anim-rotate-in');
-            prodInfo.style.opacity = '0';
-
-            setTimeout(() => {
-                currentIndex = (currentIndex - 1 + products.length) % products.length;
-                updateContent();
-
-                shoeImg.classList.remove('anim-rotate-in');
-                void shoeImg.offsetWidth;
-                shoeImg.classList.add('anim-rotate-in');
-                prodInfo.style.opacity = '1';
-            }, 400);
+            changeSlide(-1);
         }
 
         /* ==============================
@@ -1416,27 +1589,18 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const menuClose = document.getElementById('menu-close');
 
-
         menuToggle.addEventListener('click', () => {
-
             mobileMenu.classList.add('active');
-
         });
-
 
         menuClose.addEventListener('click', () => {
-
             mobileMenu.classList.remove('active');
-
         });
 
-
         document.addEventListener('keydown', (event) => {
-
             if (event.key === 'Escape') {
                 mobileMenu.classList.remove('active');
             }
-
         });
 
         updateContent();
