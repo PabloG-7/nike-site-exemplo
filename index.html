@@ -581,6 +581,311 @@
         /* FIM DOS BOTÕES DE NAVEGAÇÃO */
         /* ============================================== */
 
+        /* =========================================
+           MOBILE MENU
+        ========================================= */
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+
+            z-index: 999;
+
+            padding:
+                max(22px, env(safe-area-inset-top))
+                25px
+                max(22px, env(safe-area-inset-bottom));
+
+            display: flex;
+            flex-direction: column;
+
+            background: rgba(245, 245, 245, 0.88);
+
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(-20px) scale(1.02);
+
+            transition:
+                opacity .4s ease,
+                visibility .4s ease,
+                transform .5s cubic-bezier(.16, 1, .3, 1);
+
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+
+        /* ABERTO */
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+
+        /* TOPO */
+
+        .mobile-menu-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .mobile-menu-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-family: 'Arial Black', sans-serif;
+
+            font-size: 18px;
+            font-weight: 900;
+
+            letter-spacing: 4px;
+        }
+
+
+        .mobile-menu-brand span {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #00d4ff;
+
+            box-shadow:
+                0 0 10px rgba(0,212,255,.7),
+                0 0 25px rgba(0,212,255,.3);
+        }
+
+
+        /* X */
+
+        .menu-close {
+            width: 44px;
+            height: 44px;
+
+            border: 1px solid rgba(0,0,0,.12);
+
+            background: rgba(255,255,255,.4);
+
+            backdrop-filter: blur(10px);
+
+            cursor: pointer;
+
+            font-size: 28px;
+            font-weight: 200;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: .3s ease;
+
+            clip-path: polygon(
+                8px 0,
+                100% 0,
+                100% calc(100% - 8px),
+                calc(100% - 8px) 100%,
+                0 100%,
+                0 8px
+            );
+        }
+
+
+        .menu-close:hover {
+            background: #000;
+            color: #fff;
+        }
+
+
+        /* CONTEÚDO */
+
+        .mobile-menu-content {
+            margin-top: auto;
+            margin-bottom: auto;
+
+            width: 100%;
+        }
+
+
+        .menu-label {
+            font-size: 9px;
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            color: rgba(0,0,0,.35);
+
+            margin-bottom: 15px;
+        }
+
+
+        /* OPÇÕES */
+
+        .mobile-menu-item {
+            width: 100%;
+
+            display: grid;
+            grid-template-columns: 35px 1fr auto;
+
+            align-items: center;
+
+            padding: 17px 0;
+
+            border: none;
+            border-bottom: 1px solid rgba(0,0,0,.10);
+
+            background: transparent;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            color: #111;
+
+            font-family: Impact, 'Arial Narrow Bold', sans-serif;
+
+            font-size: clamp(27px, 8vw, 40px);
+
+            letter-spacing: -.5px;
+
+            transition:
+                padding .3s ease,
+                color .3s ease;
+        }
+
+
+        .menu-number {
+            font-family: 'Segoe UI', sans-serif;
+
+            font-size: 8px;
+
+            letter-spacing: 1px;
+
+            color: rgba(0,0,0,.3);
+        }
+
+
+        .menu-arrow {
+            font-family: Arial, sans-serif;
+
+            font-size: 19px;
+
+            font-weight: 400;
+
+            opacity: .25;
+
+            transition: .3s ease;
+        }
+
+
+        /* HOVER */
+
+        .mobile-menu-item:hover {
+            padding-left: 8px;
+            color: #00aacf;
+        }
+
+
+        .mobile-menu-item:hover .menu-arrow {
+            opacity: 1;
+
+            transform:
+                translate(3px,-3px);
+        }
+
+
+        /* LINKS MENORES */
+
+        .mobile-menu-secondary {
+            display: flex;
+
+            gap: 25px;
+
+            margin-top: 22px;
+        }
+
+
+        .mobile-menu-secondary button {
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            color: rgba(0,0,0,.45);
+
+            transition: .3s;
+        }
+
+
+        .mobile-menu-secondary button:hover {
+            color: #00aacf;
+        }
+
+
+        /* FOOTER */
+
+        .mobile-menu-footer {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            color: rgba(0,0,0,.35);
+        }
+
+
+        .online-status {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+        }
+
+
+        .online-status i {
+            width: 5px;
+            height: 5px;
+
+            background: #00d4ff;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 8px #00d4ff;
+        }
+
+
+        /* DESKTOP NÃO MOSTRA */
+
+        @media (min-width: 769px) {
+
+            .mobile-menu {
+                display: none;
+            }
+
+        }
+
         /* =========================================================
            MOBILE
            ========================================================= */
@@ -842,9 +1147,73 @@
         <div class="header-icons">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <svg id="menu-toggle" viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
         </div>
     </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+
+        <div class="mobile-menu-top">
+            <div class="mobile-menu-brand">
+                <span></span>
+                NIKE
+            </div>
+
+            <button class="menu-close" id="menu-close" aria-label="Fechar menu">
+                ×
+            </button>
+        </div>
+
+        <div class="mobile-menu-content">
+
+            <p class="menu-label">EXPLORE</p>
+
+            <button class="mobile-menu-item" data-page="collection">
+                <span class="menu-number">01</span>
+                <span>NEW COLLECTION</span>
+                <span class="menu-arrow">↗</span>
+            </button>
+
+            <button class="mobile-menu-item" data-page="men">
+                <span class="menu-number">02</span>
+                <span>MEN</span>
+                <span class="menu-arrow">↗</span>
+            </button>
+
+            <button class="mobile-menu-item" data-page="women">
+                <span class="menu-number">03</span>
+                <span>WOMEN</span>
+                <span class="menu-arrow">↗</span>
+            </button>
+
+            <button class="mobile-menu-item" data-page="kids">
+                <span class="menu-number">04</span>
+                <span>KIDS</span>
+                <span class="menu-arrow">↗</span>
+            </button>
+
+            <div class="mobile-menu-secondary">
+                <button data-page="stories">STORIES</button>
+                <button data-page="blog">BLOG</button>
+            </div>
+
+        </div>
+
+        <div class="mobile-menu-footer">
+            <span>NIKE® / 2026</span>
+            <span class="online-status">
+                <i></i>
+                ONLINE
+            </span>
+        </div>
+
+    </div>
 
     <main>
         <div class="background-text" id="bg-text">NIKE</div>
@@ -1034,6 +1403,37 @@
                 prodInfo.style.opacity = '1';
             }, 400);
         }
+
+        /* ==============================
+           MOBILE MENU
+        ============================== */
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuClose = document.getElementById('menu-close');
+
+
+        menuToggle.addEventListener('click', () => {
+
+            mobileMenu.classList.add('active');
+
+        });
+
+
+        menuClose.addEventListener('click', () => {
+
+            mobileMenu.classList.remove('active');
+
+        });
+
+
+        document.addEventListener('keydown', (event) => {
+
+            if (event.key === 'Escape') {
+                mobileMenu.classList.remove('active');
+            }
+
+        });
 
         updateContent();
     </script>
